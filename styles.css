@@ -1,194 +1,67 @@
-/*****GENERAL*****/
+/***************
+ GENERAL
+***************/
 body {
-  margin:0;
-  padding: 0;
-  font-family: 'Lato', sans-serif;
-  background-color: #f3f3f3;
-  height: 100%;
+	margin:0;
+	padding: 0;
+	height: 100%;
+	font-family: 'Lato', sans-serif;
+	background-color: #f3f3f3;
 }
-/*****CONTAINERS*****/
-
+/***************
+ GENERAL CONTAINERS
+***************/
 .wrapper {
-	max-width: 2400px;
-	margin: 0 auto;
 	display: flex;
+	margin: 0 auto;
+	max-width: 2400px;
 }
 .row {
 	display: flex;
 	flex-direction: row;
 }
 .col {
-  display: flex;
-  flex-direction: column;
-  background-color: #ffffff;
-  padding: 15px;
-  margin: 0px;
-  border-radius: 2px;
-  box-shadow: 0px 0px 4px rgba(0,0,0,.1);
+	display: flex;
+	flex-direction: column;
+	margin: 0px;
+	padding: 15px;
+	background-color: #ffffff;
+	border-radius: 2px;
+	box-shadow: 0px 0px 4px rgba(0,0,0,.1);
 }
 .col-1-5 {
- /* width: calc(20% - 0px);*/
-  flex-grow: 1;
+	/*flex-grow: 1;*/
 }
 .col-4-5 {
-  /*idth: calc(80% - 100px);*/
-  flex-grow: 1;
+	flex-grow: 4;
 }
-#map {
-    flex-grow: 20;
-	background: url(map.png);
-}
-/*****TEXT*****/
+
+/***************
+ TEXT
+***************/
 h3 {
-    margin: 10px 0px 0px;
-    text-transform: uppercase;
+    margin: 0px 0px 0px;
     font-size: 13px;
-	    color: white;
+	color: white;
+	text-transform: uppercase;
 }
-p.subheader {
+.subheader {
     margin: 0px 0px 20px;
     font-size: 12px;
     color: #00bcdc;
 }
-button {
-    width: 200px!important;
-    background-color: #e6ed07;
-    padding: 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 3px;
-}
-header p {
-	margin: 0px;
-	padding: 25px;
-}
 
-p.status {
-    background-color: #e5fbdf;
-    color: green;
-    float: left;
-    padding: 0px 10px 2px;
-    border-radius: 20px;
-    font-size: 12px;
-}
-
-.profile_pic {
-    width: 50px;
-    height: 50px;
-    float: left;
-    /*margin: 0px 10px;*/
-    border-radius: 500px;
-    background-position: center;
-    background-size: 100px;
-    background-image: url(https://www.seattlemag.com/sites/default/files/field/image/Harry.jpg);
-}
-p.bigfoot_enviroment_title {
-    display: inline-block;
-    min-width: 150px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 12px;
-}
-#bigfoot_enviroment {
-    color: #696969;
-    border-top: 1px solid #e4e4e4;
-	position: relative;
-}
-
-#bigfoot_mapping--proximity p {
-    font-family: inherit;
-    padding: 0px;
-    margin: 0px;
-    display: inline-block;
-}
-#bigfoot_mapping--proximity p:before {
-	font-family: "Font Awesome 5 Free";
+/***************
+ ICONS
+***************/
+i {
 	margin-right: 10px;
-	font-weight: bold;
 }
-.bigfoot_stats--proximity {
-    font-weight: bold;
-    text-decoration: underline;
-}
-div#bigfoot {
-    background: #292a38;
-	    min-height: 100vh;
-}
-div#bigfoot_mapping--map {
-    margin: 0px;
-    padding: 0px;
-}
-#bigfoot_mapping--map img {
-    width: 100%;
-    height: 100%;
-}
-div#bigfoot_mapping--proximity {
-    float: left;
-    background-color: #daf954;
-    padding: 10px 20px;
-    margin: 0px;
-    width: calc(100% - 40px);
-    font-size: 12px;
-}
-.bigfoot_charts {
-    /* padding: 20px; */
-    width: 100%;
-}
-nav li {
-    display: inline-block;
-    margin-right: 10px;
-	cursor: pointer;
-	    color: #bfbfbf;
-		padding-bottom: 5px;
-		border-bottom: 2px solid white;
-}
-nav {
-    border-bottom: 2px solid #e2e2e2;
-    margin: 10px 0px;
-}
-nav ul {
-    padding: 0;
-	    margin: 0;
-	font-family: 'Open Sans', sans-serif;
-	font-weight: 600;
-	font-size: 13px;
-}
-nav li.active {
-    color: #292a38;
-    border-bottom: 2px solid;
-    
-	    
-}
-nav li:hover {
-    color: #00bcdc;
-    transition: .5s;
-}
-i:hover::before {
+#bigfoot_enviroment i:hover::before {
     left: -30px;
     transition: .5s;
 }
-.bigfoot_tables ul {
-	padding:0;
-}
-.bigfoot_tables li {
-    list-style: none;
-}
-.bigfoot_tables li:nth-child(odd) {
-    background-color: #dcedef;
-}
-.bigfoot_enviroment {
-    margin-right: 20px;
-	
-}
-#bigfoot_enviroment h3 {
-    color: #292a38;
-}
-#bigfoot {
-	max-width:50px;
-	padding: 10px;
-	float: left;
-}
-i:before {
+#bigfoot_enviroment i:before {
     position: absolute;
     top: 0px;
     left: -33px;
@@ -196,15 +69,130 @@ i:before {
 	transition: .5s;
 	cursor: pointer;
 }
-.map-container {
-    width: 80%;
-    margin: 0 auto;
+/***************
+ PROFILE BLOCK
+***************/
+#bigfoot {
+    padding: 10px;
+	max-width:50px;
+	background: #292a38;
 }
-.bigfoot_charts, 
-.bigfoot_tables {
+.bigfoot--image {
+    width: 50px;
+    height: 50px;
+    float: left;
+    background-position: center;
+    background-size: 100px;
+    background-image: url(https://www.seattlemag.com/sites/default/files/field/image/Harry.jpg);
+	border-radius: 500px;
+}
+/***************
+ CHART BLOCK
+***************/
+nav {
+    margin: 10px 0px;
+	border-bottom: 2px solid #e2e2e2;
+}
+nav ul {
+    margin: 0 0 -2px 0;
+	padding: 0;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+	font-size: 13px;
+}
+nav li {
+    display: inline-block;
+    margin-right: 10px;
+	padding-bottom: 5px;
+	color: #bfbfbf;
+	border-bottom: 2px solid #ffffff00;
+	cursor: pointer;
+}
+nav li.active {
+    color: #292a38;
+    border-bottom: 2px solid;    
+}
+nav li:hover {
+    color: #00bcdc;
+    transition: .5s;
+}
+#bigfoot_enviroment {
+    position: relative;
+	padding: 25px;
+	color: #696969;
+}
+#bigfoot_enviroment h3 {
+    color: #292a38;
+}
+.bigfoot_enviroment {
+    margin-right: 20px;
+}
+#bigfoot_charts, 
+#bigfoot_tables {
 	display: none;
+	width: 300px;
 }
-.bigfoot_charts.active, 
-.bigfoot_tables.active {
+#bigfoot_charts.active, 
+#bigfoot_tables.active {
 	display: block;
 }
+#bigfoot_tables table {
+    margin-bottom: 30px;
+}
+#bigfoot_tables th {
+	color: #292a38;
+    text-align: left;
+}
+#bigfoot_tables tr:nth-child(even) {
+    background-color: #c8f7ff;
+}
+#bigfoot_tables td {
+    min-width: 146px;
+}
+.bigfoot_charts {
+    width: 100%;
+}
+.bigfoot_charts_container {
+    margin: 0 auto;
+	max-width: 300px;   
+}
+
+
+/***************
+ MAP BLOCK
+***************/
+#bigfoot_mapping {
+    margin: 0px;
+    padding: 0px;
+}
+#bigfoot_mapping--map {
+    min-height: calc(100% - 35px);
+	background: url(map.png);
+}
+#bigfoot_mapping--proximity {
+    margin: 0px;
+	padding: 10px 20px;
+	width: calc(100% - 40px);
+	float: left;
+	font-size: 12px;
+    background-color: #daf954;  
+}
+#bigfoot_mapping--proximity i+p {
+	font-weight: bold;
+}
+#bigfoot_mapping--proximity p {
+    display: inline-block;
+	margin: 0px;
+	padding: 0px;
+}
+#bigfoot_mapping--proximity span {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
+
+
+/*****TEMP*****/
+
+
