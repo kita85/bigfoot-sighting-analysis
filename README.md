@@ -1,5 +1,6 @@
 # Bigfoot Sighting Analysis
 A Bigfoot sighting data analysis built using Google Maps API and Chart.js.
+
 Demo: http://kitacranfill.com/bigfoot/
 
 ## Getting Started
@@ -27,16 +28,21 @@ Create a conn.php file & connect to database
 ## Code Sample Index
 
 bigfoot.php
+
 Database, php function example
 
 index.php
+
 Html, Ajax, jquery, chart implementation
 
 styles.css
+
 Flex/Responsvie Css Examples
 
 map.js
+
 google map api 
+
 probability of seeing a big foot
 
 
