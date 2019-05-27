@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans:400,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script type="text/javascript" src="inc/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="inc/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="inc/chart.js@2.8.0"></script>
 </head>
 
