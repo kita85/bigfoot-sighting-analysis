@@ -12,7 +12,7 @@ function initMap() {
     map.data.loadGeoJson("inc/bfro_reports.json");
 
     //Set a new icon
-    map.data.setStyle({icon: "inc/marker.png"});
+    map.data.setStyle({icon: "images/marker.png"});
 
     //Add mouseover event to open json data for each sighting marker.
     var sightingInfo = new google.maps.InfoWindow();
