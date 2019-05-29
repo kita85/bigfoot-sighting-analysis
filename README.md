@@ -11,7 +11,7 @@ This sample demonstrates:
 * Use of Flex/Responsvie Css
 * Use of JavaScript libraries
 * ~~Input and output operations (geo location, move, input field?)~~
-* ~~Unit testing~~
+* ~~Jest Unit testing~~
 * ~~Use of Git for version control~~
 * ~~Use of JSDoc for documentation~~
 
