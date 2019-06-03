@@ -3,13 +3,13 @@
 //define server variables
 include 'conn.php';
 
-//Call the function if the ajax post is not empty.
+//Call the function if the ajax post is not empty. **FIX Sanitation
 if (!empty($_POST)) {
-    $searchValue = filter_input_array($_POST['searchValue'], FILTER_SANITIZE_STRING); //Row to be queried 
-    $orderValue  = filter_input_array($_POST['orderValue'], FILTER_SANITIZE_STRING); //Which variable to order data by
-    $dirValue    = filter_input_array($_POST['dirValue'], FILTER_SANITIZE_STRING); //ASC or DESC order by direction
-    $limitValue  = filter_input_array($_POST['limitValue'], FILTER_SANITIZE_STRING); //Limit results
-    charts($searchValue, $orderValue, $dirValue, $limitValue);
+    $searchValue = $_POST['searchValue']; //Row to be queried 
+	$orderValue = $_POST['orderValue']; //Which variable to order data by
+	$dirValue = $_POST['dirValue']; //ASC or DESC order by direction
+	$limitValue = $_POST['limitValue']; //Limit results
+	charts($searchValue,$orderValue,$dirValue,$limitValue);
 }
 
 
