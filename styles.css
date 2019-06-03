@@ -1,6 +1,4 @@
-/***************
- GENERAL
-***************/
+/*************** GENERAL ***************/
 body {
 	margin:0;
 	padding: 0;
@@ -8,13 +6,12 @@ body {
 	font-family: 'Lato', sans-serif;
 	background-color: #f3f3f3;
 }
-/***************
- GENERAL CONTAINERS
-***************/
+/*************** GENERAL CONTAINERS ***************/
 .wrapper {
 	display: flex;
 	margin: 0 auto;
-	max-width: 2400px;
+	min-height: 100vh;
+	overflow: hidden;
 }
 .row {
 	display: flex;
@@ -25,6 +22,7 @@ body {
 	flex-direction: column;
 	margin: 0px;
 	padding: 15px;
+	max-height: calc(100vh - 50px);
 	background-color: #ffffff;
 	border-radius: 2px;
 	box-shadow: 0px 0px 4px rgba(0,0,0,.1);
@@ -33,12 +31,10 @@ body {
 	/*flex-grow: 1;*/
 }
 .col-4-5 {
-	flex-grow: 4;
+	flex-grow: 1;
 }
 
-/***************
- TEXT
-***************/
+/*************** TEXT ***************/
 h3 {
     margin: 0px 0px 0px;
     font-size: 13px;
@@ -51,27 +47,23 @@ h3 {
     color: #00bcdc;
 }
 
-/***************
- ICONS
-***************/
+/*************** ICONS ***************/
 i {
 	margin-right: 10px;
 }
-#bigfoot_enviroment i:hover::before {
+.chartMenuButton:hover::before {
     left: -30px;
     transition: .5s;
 }
-#bigfoot_enviroment i:before {
+.chartMenuButton {
     position: absolute;
     top: 0px;
-    left: -33px;
-    padding: 9px;
-	transition: .5s;
-	cursor: pointer;
+    right: -10px;
+    padding: 12px;
+    transition: .5s;
+    cursor: pointer;
 }
-/***************
- PROFILE BLOCK
-***************/
+/*************** PROFILE BLOCK ***************/
 #bigfoot {
     padding: 10px;
 	max-width:50px;
@@ -83,12 +75,10 @@ i {
     float: left;
     background-position: center;
     background-size: 100px;
-    background-image: url(https://www.seattlemag.com/sites/default/files/field/image/Harry.jpg);
+    background-image: url(images/Harry.jpg);
 	border-radius: 500px;
 }
-/***************
- CHART BLOCK
-***************/
+/*************** CHART BLOCK ***************/
 nav {
     margin: 10px 0px;
 	border-bottom: 2px solid #e2e2e2;
@@ -117,9 +107,13 @@ nav li:hover {
     transition: .5s;
 }
 #bigfoot_enviroment {
-    position: relative;
+	margin-right: -350px;
 	padding: 25px;
 	color: #696969;
+	overflow-y: scroll;
+}
+#bigfoot_enviroment.active {
+    margin-right: 0px;
 }
 #bigfoot_enviroment h3 {
     color: #292a38;
@@ -158,23 +152,22 @@ nav li:hover {
 }
 
 
-/***************
- MAP BLOCK
-***************/
+/*************** MAP BLOCK ***************/
 #bigfoot_mapping {
     margin: 0px;
     padding: 0px;
 }
 #bigfoot_mapping--map {
-    min-height: calc(100% - 35px);
-	background: url(map.png);
+    min-height: 100%;
+	background: url(images/map.png);
 }
 #bigfoot_mapping--proximity {
-    margin: 0px;
+    position: relative;
+	margin: 0px;
 	padding: 10px 20px;
 	width: calc(100% - 40px);
 	float: left;
-	font-size: 12px;
+	font-size: 14px;
     background-color: #daf954;  
 }
 #bigfoot_mapping--proximity i+p {
@@ -190,9 +183,18 @@ nav li:hover {
     text-decoration: underline;
 }
 
-
-
-
-/*****TEMP*****/
-
-
+/*************** MOBILE ***************/
+@media (max-width: 720px) {
+	#bigfoot_enviroment {
+		margin-right: 0px;
+	}
+	#bigfoot_enviroment.active {
+		margin-right: -350px;
+	}
+	.fa-arrow-right:before {
+		content: "\f060";
+	}
+	.fa-arrow-left:before {
+		content: "\f061";
+	}
+}

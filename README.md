@@ -1,107 +1,59 @@
-
-Data Source: https://data.world/timothyrenner/bfro-sightings-data
-
-## Getting Started
-```
-Give examples
-```
-bigfoot.php
-Database, php function example
-
-index.php
-Html, Ajax, jquery, chart implementation
-
-styles.css
-Flex/Responsvie Css Examples
-
-map.js
-google map api 
-probability of seeing a big foot
-
-
 # Bigfoot Sighting Analysis
 A Bigfoot sighting data analysis built using Google Maps API and Chart.js.
 
-## Getting Started
+Demo: http://kitacranfill.com/bigfoot/
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+This sample demonstrates:
+
+* Use of Ajax and PHP for server communication
+* API implementation
+* Use of Flex/Responsvie Css
+* Use of JavaScript libraries
+* ~~Input and output operations~~
+* ~~Jest Unit testing~~
+* Use of Git for version control
+* ~~Use of JSDoc for documentation~~
+
+
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Google API Key
+https://developers.google.com/maps/documentation/javascript/tutorial
 
 ```
-Give examples
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"async defer></script>
 ```
 
-### Installing
+## Installing
 
-A step by step series of examples that tell you how to get a development env running
+* Include npm insturctions
 
-Say what the step will be
 
-```
-Give the example
-```
+## Testing
 
-And repeat
+Tests can be executed using
 
 ```
-until finished
+npm test
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+## Documentation
 
 ## Built With
 
-* [Google Map API](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/tutorial) - Map API
+* [Chartjs](https://www.chartjs.org/) - Chart visualizations
+* [jQuery](https://jquery.com/) - The web framework used
+* [Bigfoot Sighting Data](https://data.world/timothyrenner/bfro-sightings-data) - Data being analyzed
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Kita Cranfill** - *Full Development* - [GitHub](https://github.com/kita86)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Thanks Timothy Renner for providing the Bigfoot Sighting data.
