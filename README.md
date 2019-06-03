@@ -10,9 +10,9 @@ This sample demonstrates:
 * API implementation
 * Use of Flex/Responsvie Css
 * Use of JavaScript libraries
-* ~~Input and output operations (geo location, move, input field?)~~
+* ~~Input and output operations~~
 * ~~Jest Unit testing~~
-* ~~Use of Git for version control~~
+* Use of Git for version control
 * ~~Use of JSDoc for documentation~~
 
 
@@ -28,20 +28,16 @@ https://developers.google.com/maps/documentation/javascript/tutorial
 
 ## Installing
 
-1. Upload all files into your web server.
-
-2. Create database
-```
-Sql commands create
-```
-3. Import inc/Bigfoot_sightings.csv to database table. Name the table data
-```
-Sql commands add csv rename table
-```
-4. Edit conn.php file & connect to database
+* Include npm insturctions
 
 
 ## Testing
+
+Tests can be executed using
+
+```
+npm test
+```
 
 ## Documentation
 
