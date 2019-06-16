@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script type="text/javascript" src="inc/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="inc/chart.js@2.8.0"></script>
+	<script type="text/javascript" src="src/charts.js"></script>
 </head>
 
 <body>
@@ -30,9 +31,10 @@
             </div>
             <div id="bigfoot_mapping--map"></div>
             <!--Google Map API-->
-            <script type="text/javascript" src="map.js"></script>
+            <script type="text/javascript" src="src/map.js"></script>
             <script src="https://maps.googleapis.com/maps/api/js?key=APIKEY&callback=initMap" async defer></script>
-        </div>
+			
+	   </div>
 		
         <!--Chart block-->
         <div id="bigfoot_enviroment" class="col col-1-5 active">
@@ -79,130 +81,7 @@
                 </div>
             </div>
         </div>
-    </div>
-	
-    <script>
-        
-        var label = []; //Array of chart labels
-        var count = []; //Array of sightings by tally
-		
-		// Reusable Ajax function
-        function charts(searchValue, orderValue, dirValue, limitValue) {
-            return $.ajax({
-                type: "POST",
-                url: 'bigfoot.php',
-                data: {
-                    searchValue: searchValue,
-                    orderValue: orderValue,
-                    dirValue: dirValue,
-                    limitValue: limitValue
-                },
-                success: function(data) {
-                    //Clear variables before reassigning.
-                    label = [];
-                    count = [];
-					
-					//Sanatize the output
-                    label = data.replace(/,\s*$/, "").replace(/['"]+/g, '').split(',');
-					//Split the output into 2 arrays.
-                    for (var i = label.length - 1; i >= 0; i--) {
-                        if (i % 2 === 1) {
-                            count.unshift(label.splice(i, 1)[0])
-                        }
-                    }
-                    //console.log(label);
-                    //console.log(count);
-
-                },
-                error: function(data) {
-                    console.log('An error occurred: charts function');
-                }
-
-            });
-        }
-    </script>
-	
-    <script>
-        //ChartJS chart implementation
-        Chart.defaults.global.defaultFontFamily = "Open Sans";
-        Chart.defaults.scale.gridLines.display = false;
-
-        //Wait until Ajax is finished before excuting this code.	
-        $.when(charts("state", "count", "DESC", 10)).done(function() {
-            //Create chart based on Ajax output.
-            var ctx = document.getElementById('bigfoot_charts--state').getContext('2d');
-            var stateChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: label,
-                    datasets: [{
-                        label: 'Sightings by State (1921 - 2018)',
-                        data: count,
-                        backgroundColor: '#54ecf9',
-                        FontFamily: 'Lato'
-                    }]
-                },
-                options: {}
-            });
-        });
-
-        //Wait until Ajax is finished before excuting this code.
-        $.when(charts("year", "year", "ASC", 100)).done(function() {
-            //Create chart based on Ajax output.
-			var ctx = document.getElementById('bigfoot_charts--year').getContext('2d');
-            var yearChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: label,
-                    datasets: [{
-                        label: 'Sightings by Year',
-                        data: count,
-                        backgroundColor: '#f95454',
-                        borderColor: '#f95454',
-                        fill: false,
-                        lineTension: 0
-                    }]
-                },
-                options: {}
-            });
-        });
-
-        //Loop throgh each of the #bigfoot_tables
-        $("#bigfoot_tables div").each(function(index) {
-
-            //Split this class. Use split as parameter for charts function
-            var searchValue = $(this).prop("class").split("bigfoot_tables--");
-
-            //Wait until Ajax is finished before excuting this code.
-            $.when(charts(searchValue[1], 'count', "DESC", 5)).done(function() {
-                //Create table based on Ajax output
-                $.each(label, function(key, value) {
-                    $(".bigfoot_tables--" + searchValue[1] + " table").append("<tr><td>" + label[key] + "</td><td>" + count[key] + "</td></tr>");
-                });
-            });
-        });
-
-    </script>
-	
-    <script>		
-		
-        //Chart or table navigation in right panel
-        $("nav ul li").click(function() {
-            //remove active class from all
-            $("nav ul li, #bigfoot_charts, #bigfoot_tables").removeClass("active");
-            //get active parameter
-            var activeValue = $(this).prop("class").split("bigfoot_enviroment--");
-            //set icon and nav button as active
-            $(this).addClass("active");
-            $("#bigfoot_" + activeValue[1]).addClass("active");
-        });
-
-        //Hide Chart Menu
-        $(".chartMenuButton").click(function() {
-            $("#bigfoot_enviroment").toggleClass("active");
-            $(this).toggleClass("fa-arrow-right").toggleClass("fa-arrow-left");
-        });
-    </script>
+    </div><!-- end wrapper -->
 </body>
 
 </html>
