@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>map.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-lib_charts.html">lib/charts</a><ul class='methods'><li data-type='method'><a href="module-lib_charts.html#.chartQuery">chartQuery</a></li><li data-type='method'><a href="module-lib_charts.html#.chartState">chartState</a></li><li data-type='method'><a href="module-lib_charts.html#.chartYear">chartYear</a></li></ul></li><li><a href="module-lib_maps.html">lib/maps</a><ul class='methods'><li data-type='method'><a href="module-lib_maps.html#.geoFail">geoFail</a></li><li data-type='method'><a href="module-lib_maps.html#.geoSuccess">geoSuccess</a></li><li data-type='method'><a href="module-lib_maps.html#.initMap">initMap</a></li><li data-type='method'><a href="module-lib_maps.html#.probability">probability</a></li><li data-type='method'><a href="module-lib_maps.html#.radius">radius</a></li><li data-type='method'><a href="module-lib_maps.html#.userLocation">userLocation</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">map.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileOverview Google Map API implementation
+ * @author Kita Cranfill
+ * @version 1.0.0
+ * @module lib/maps
+ */
+var map;
+var sightingJson;
+
+
+
+/**
+ * Creates a map with Bigfoot sighting data. Also asks user permission to use HTML5 geolocation
+ * @example
+ *
+ *  map.data.loadGeoJson("inc/bfro_reports.json");
+ * @see https://developers.google.com/maps/documentation/javascript/tutorial
+ * @memberof module:lib/maps
+ */
+function initMap() {
+    map = new google.maps.Map(document.getElementById('bigfoot_mapping--map'), {
+        zoom: 9
+    });
+
+    //Load Geo Json File
+    map.data.loadGeoJson("inc/bfro_reports.json");
+
+    //Set a new icon
+    map.data.setStyle({
+        icon: "images/marker.png"
+    });
+
+    //Add mouseover event to open json data for each sighting marker.
+    var sightingInfo = new google.maps.InfoWindow();
+    map.data.addListener('click', function(event) {
+
+        var markerName = event.feature.getProperty("name");
+        var markerDate = event.feature.getProperty("date");
+        var markerSummary = event.feature.getProperty("summary");
+
+        sightingInfo.setContent(markerName + "&lt;/br>" + markerDate + "&lt;/br>" + markerSummary);
+        sightingInfo.setPosition(event.feature.getGeometry().get());
+        sightingInfo.open(map);
+    });
+
+
+    //Get HTML5 geolocation if available.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            //Set pos to current lat/lng.
+
+            geoSuccess(position);
+        }, function() {
+            //Couldnt find geolocation. Manually set user marker.
+            geoFail();
+        });
+    } else {
+        // Browser doesn't support Geolocation. Manually set user marker.
+        geoFail();
+    }
+}
+
+
+
+
+/**
+ * Set coordinates to HTML5 geolocation.	
+ * @param {Object} pos - Google Map coordinates for marker.
+ * @memberof module:lib/maps
+ */
+function geoSuccess(position) {
+    var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    userLocation(pos);
+}
+
+
+
+
+/**
+ * Browser could not obtain geolocation. Manually set user coordinates.
+ * @memberof module:lib/maps
+ */
+function geoFail() {
+    var pos = new google.maps.LatLng({
+        lat: 36.0104,
+        lng: -84.2696
+    });
+    userLocation(pos);
+}
+
+
+
+
+/**
+ * Adds marker at coordinates. Also adds event listener for marker drag then calls probability().
+ * @param {Object} pos - Google Map coordinates for marker.
+ * @memberof module:lib/maps
+ */
+function userLocation(pos) {
+    var userMarker = new google.maps.Marker({
+        position: pos,
+        map: map,
+        draggable: true
+    });
+    map.setCenter(pos);
+
+    //Call radius function: Add radius around currect location.	
+    radius(pos);
+
+    //Add info window (tool tip) to explain user can drag location marker.
+    var dragme = new google.maps.InfoWindow({
+        content: "I'm Draggable!"
+    });
+    dragme.open(map, userMarker);
+
+    //Listen for current location marker drag event end. Update lat/lng, redraw radius, &amp; probability.
+    google.maps.event.addListener(userMarker, 'dragend', function() {
+        pos = userMarker.getPosition();
+        radius_circle.setMap(null);
+        radius(pos);
+        probability(pos, sightingJson);
+    });
+
+    //Assign json to variable then call probablity function.
+    $.getJSON("inc/bfro_reports.json", function(data) {
+        sightingJson = data["features"];
+        probability(pos, sightingJson);
+    });
+    return;
+}
+
+
+
+
+/**
+ * Add radius around coordinates.
+ * @param {Object} pos - Google Map coordinates for marker.
+ * @memberof module:lib/maps
+ */
+function radius(pos) {
+    radius_circle = new google.maps.Circle({
+        center: pos,
+        radius: 50 * 1000, //km to meters
+        clickable: false,
+        map: map
+    });
+    return;
+}
+
+
+
+
+/**
+ * Probably is based on random chance, area sightings, and proximity to current location.
+ * @example
+ *
+ *  if (areaSightings != 0) {
+    var probablity = randomChance * (areaSightings * 10) * (proximity / areaSightings * 10);
+ } else {
+    var probablity = randomChance; //Never an absolute 0 chance of seeing Bigfoot!
+}
+ * @param {Object} pos - Google Map coordinates for marker.
+ * @param {Object} sightingJson - The Bigfoot sighting json
+ * @returns {number} - The probability of seeing a Bigfoot.
+ * @memberof module:lib/maps
+ */
+function probability(pos, sightingJson) {
+    //Other factors to implement in order to create more accerate probability: date, weather, season, tempature, terrain.
+    var randomChance = 0.0000000715; //Chances of winning the lottery
+    var proximity = 0;
+    var areaSightings = 0;
+
+    //Loop through all sightings lat/lng
+    for (var i = 0; i &lt; sightingJson.length; i++) {
+        var checkcord = new google.maps.LatLng(sightingJson[i]["geometry"]["coordinates"][1], sightingJson[i]["geometry"]["coordinates"][0]);
+
+        //Find distance between sighting and currect lat/lng.
+        var distance_from_location = google.maps.geometry.spherical.computeDistanceBetween(pos, checkcord);
+
+        //If distance is less than 50000 meters, do some arbitrary math.
+        if (distance_from_location &lt;= 50 * 1000) {
+            areaSightings++;
+            proximity = proximity + distance_from_location;
+        }
+    }
+
+    //If location radius has sightings, do probablity math. Otherwise, it is random change.
+    if (areaSightings != 0) {
+        var probablity = randomChance * (areaSightings * 10) * (proximity / areaSightings * 10);
+    } else {
+        var probablity = randomChance; //Never an absolute 0 chance of seeing Bigfoot!
+    }
+    return probablity.toFixed(8);
+    //$("#bigfoot_mapping--proximity span").text(probablity.toFixed(8) + "%");
+}
+
+
+module.exports = {
+    initMap: initMap,
+    geoSuccess: geoSuccess,
+    geoFail: geoFail,
+    userLocation: userLocation,
+    radius: radius,
+    probability: probability
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Sun Jun 16 2019 18:09:08 GMT-0400 (Eastern Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

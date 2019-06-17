@@ -1,9 +1,23 @@
-//Google Map API implementation
+/**
+ * @fileOverview Google Map API implementation
+ * @author Kita Cranfill
+ * @version 1.0.0
+ * @module lib/maps
+ */
 var map;
 var sightingJson;
 
-function initMap() {  
-	//Create Google map & add Bigfoot sighting data.
+
+
+/**
+ * Creates a map with Bigfoot sighting data. Also asks user permission to use HTML5 geolocation
+ * @example
+ *
+ *  map.data.loadGeoJson("inc/bfro_reports.json");
+ * @see https://developers.google.com/maps/documentation/javascript/tutorial
+ * @memberof module:lib/maps
+ */
+function initMap() {
     map = new google.maps.Map(document.getElementById('bigfoot_mapping--map'), {
         zoom: 9
     });
@@ -12,7 +26,9 @@ function initMap() {
     map.data.loadGeoJson("inc/bfro_reports.json");
 
     //Set a new icon
-    map.data.setStyle({icon: "images/marker.png"});
+    map.data.setStyle({
+        icon: "images/marker.png"
+    });
 
     //Add mouseover event to open json data for each sighting marker.
     var sightingInfo = new google.maps.InfoWindow();
@@ -28,10 +44,11 @@ function initMap() {
     });
 
 
-    //Get HTML5 geolocation if available. *Callback Hell
+    //Get HTML5 geolocation if available.
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             //Set pos to current lat/lng.
+
             geoSuccess(position);
         }, function() {
             //Couldnt find geolocation. Manually set user marker.
@@ -43,21 +60,43 @@ function initMap() {
     }
 }
 
+
+
+
+/**
+ * Set coordinates to HTML5 geolocation.	
+ * @param {Object} pos - Google Map coordinates for marker.
+ * @memberof module:lib/maps
+ */
 function geoSuccess(position) {
-    //Set pos to current lat/lng.	
     var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     userLocation(pos);
 }
 
+
+
+
+/**
+ * Browser could not obtain geolocation. Manually set user coordinates.
+ * @memberof module:lib/maps
+ */
 function geoFail() {
-    //Couldn't find geolocation. Manually set user marker.
-    var pos = new google.maps.LatLng({lat: 36.0104,lng: -84.2696});
+    var pos = new google.maps.LatLng({
+        lat: 36.0104,
+        lng: -84.2696
+    });
     userLocation(pos);
 }
 
 
+
+
+/**
+ * Adds marker at coordinates. Also adds event listener for marker drag then calls probability().
+ * @param {Object} pos - Google Map coordinates for marker.
+ * @memberof module:lib/maps
+ */
 function userLocation(pos) {
-    //Add marker at currect location then center map.
     var userMarker = new google.maps.Marker({
         position: pos,
         map: map,
@@ -81,29 +120,52 @@ function userLocation(pos) {
         radius(pos);
         probability(pos, sightingJson);
     });
-	
-	//Assign json to variable then call probablity function.
-	$.getJSON("inc/bfro_reports.json", function(data) {
+
+    //Assign json to variable then call probablity function.
+    $.getJSON("inc/bfro_reports.json", function(data) {
         sightingJson = data["features"];
         probability(pos, sightingJson);
     });
-
+    return;
 }
 
+
+
+
+/**
+ * Add radius around coordinates.
+ * @param {Object} pos - Google Map coordinates for marker.
+ * @memberof module:lib/maps
+ */
 function radius(pos) {
-    //Add radius around currect location.		
     radius_circle = new google.maps.Circle({
         center: pos,
         radius: 50 * 1000, //km to meters
         clickable: false,
         map: map
     });
+    return;
 }
 
 
+
+
+/**
+ * Probably is based on random chance, area sightings, and proximity to current location.
+ * @example
+ *
+ *  if (areaSightings != 0) {
+    var probablity = randomChance * (areaSightings * 10) * (proximity / areaSightings * 10);
+ } else {
+    var probablity = randomChance; //Never an absolute 0 chance of seeing Bigfoot!
+}
+ * @param {Object} pos - Google Map coordinates for marker.
+ * @param {Object} sightingJson - The Bigfoot sighting json
+ * @returns {number} - The probability of seeing a Bigfoot.
+ * @memberof module:lib/maps
+ */
 function probability(pos, sightingJson) {
-    //Probably is based on random chance * area sightings * proximity to current location
-    //*Other factors to implement in order to create more accerate probability: date, weather, season, tempature, terrain
+    //Other factors to implement in order to create more accerate probability: date, weather, season, tempature, terrain.
     var randomChance = 0.0000000715; //Chances of winning the lottery
     var proximity = 0;
     var areaSightings = 0;
@@ -128,5 +190,16 @@ function probability(pos, sightingJson) {
     } else {
         var probablity = randomChance; //Never an absolute 0 chance of seeing Bigfoot!
     }
-    $("#bigfoot_mapping--proximity span").text(probablity.toFixed(8) + "%");
+    return probablity.toFixed(8);
+    //$("#bigfoot_mapping--proximity span").text(probablity.toFixed(8) + "%");
 }
+
+
+module.exports = {
+    initMap: initMap,
+    geoSuccess: geoSuccess,
+    geoFail: geoFail,
+    userLocation: userLocation,
+    radius: radius,
+    probability: probability
+};
