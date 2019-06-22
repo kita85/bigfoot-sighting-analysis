@@ -121,11 +121,13 @@ nav li:hover {
 .bigfoot_enviroment {
     margin-right: 20px;
 }
+#bigfoot_search,
 #bigfoot_charts, 
 #bigfoot_tables {
 	display: none;
 	width: 300px;
 }
+#bigfoot_search.active,
 #bigfoot_charts.active, 
 #bigfoot_tables.active {
 	display: block;
@@ -182,7 +184,28 @@ nav li:hover {
     font-weight: bold;
     text-decoration: underline;
 }
-
+.bigfoot--map_controls {
+    padding: 20px 0;
+}
+.bigfoot--map_controls form {
+    max-width: 300px;
+}
+.bigfoot--map_controls input[type="text"] {
+    margin: 5px 0px;
+	padding: 5px;
+	width: calc(100% - 12px);
+	border-radius: 1px;
+    border: 1px solid #e2e2e2;  
+}
+.bigfoot--map_controls input[type="submit"] {
+    padding: 10px;
+    width: 100%;
+	background-color: #00c2e3;
+    color: white;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+}
 /*************** MOBILE ***************/
 @media (max-width: 720px) {
 	#bigfoot_enviroment {
