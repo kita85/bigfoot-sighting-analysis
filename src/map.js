@@ -43,34 +43,37 @@ function initMap() {
         sightingInfo.open(map);
     });
 
+	//Get URL parmeters if available.
+	if (window.location.search.indexOf('?') > -1) {
+		var parameters = window.location.toString().split("?");
+		parameters = parameters[1].split("&");
+		var ilat = parameters[0].split("=");
+		var ilng = parameters[1].split("=");
+		
+		//***Add error handling
+		ilat = Number(ilat[1]);
+		ilng = Number(ilng[1]);
+		
+		var pos = new google.maps.LatLng({lat: ilat,lng: ilng});
 
-    //Get HTML5 geolocation if available.
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            //Set pos to current lat/lng.
-
-            geoSuccess(position);
-        }, function() {
-            //Couldnt find geolocation. Manually set user marker.
-            geoFail();
-        });
-    } else {
-        // Browser doesn't support Geolocation. Manually set user marker.
-        geoFail();
-    }
-}
-
-
-
-
-/**
- * Set coordinates to HTML5 geolocation.	
- * @param {Object} pos - Google Map coordinates for marker.
- * @memberof module:lib/maps
- */
-function geoSuccess(position) {
-    var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    userLocation(pos);
+		userLocation(pos);
+	} else {
+		//Else get HTML5 geolocation if available.
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				//Set pos to current lat/lng.
+				var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);				
+				userLocation(pos);
+				//geoSuccess(position);
+			}, function() {
+				//Couldnt find geolocation. Manually set user marker.
+				geoFail();
+			});
+		} else {
+			// Browser doesn't support Geolocation. Manually set user marker.
+			geoFail();
+		}
+	}
 }
 
 
@@ -97,7 +100,10 @@ function geoFail() {
  * @memberof module:lib/maps
  */
 function userLocation(pos) {
-    var userMarker = new google.maps.Marker({
+    $("#ilat").val(pos.lat); //add parameters to lat input
+    $("#ilng").val(pos.lng); //add parameters to lng input
+	
+	var userMarker = new google.maps.Marker({
         position: pos,
         map: map,
         draggable: true
@@ -191,10 +197,11 @@ function probability(pos, sightingJson) {
         var probablity = randomChance; //Never an absolute 0 chance of seeing Bigfoot!
     }
     return probablity.toFixed(8);
-    //$("#bigfoot_mapping--proximity span").text(probablity.toFixed(8) + "%");
+       $("#bigfoot_mapping--proximity span").text(probablity.toFixed(8) + "%");
 }
 
 
+/*
 module.exports = {
     initMap: initMap,
     geoSuccess: geoSuccess,
@@ -202,4 +209,4 @@ module.exports = {
     userLocation: userLocation,
     radius: radius,
     probability: probability
-};
+};*/

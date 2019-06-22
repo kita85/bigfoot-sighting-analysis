@@ -10,7 +10,7 @@ This sample demonstrates:
 * API implementation
 * Use of Flex/Responsvie Css
 * Use of JavaScript libraries
-* ~~Input and output operations~~
+* Input and output operations
 * ~~Jest Unit testing~~
 * Use of Git for version control
 * Use of JSDoc for documentation
