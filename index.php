@@ -21,6 +21,8 @@
             <div class="bigfoot--image"></div>
         </div>
 		
+
+		
         <!--Map block-->
         <div id="bigfoot_mapping" class="col col-4-5">
             <div id="bigfoot_mapping--proximity">
@@ -42,11 +44,22 @@
             <p class="subheader">Based on Bigfoot Sighting Data</p>
             <nav>
                 <ul>
-                    <li class="bigfoot_enviroment--charts active">Charts</li>
+                    <li class="bigfoot_enviroment--search active">Map Controls</li>
+					<li class="bigfoot_enviroment--charts">Charts</li>
                     <li class="bigfoot_enviroment--tables">Tables</li>
                 </ul>
             </nav>
-            <div id="bigfoot_charts" class="active">
+			<div id="bigfoot_search" class="active">			
+				<!--Input Popup-->
+				<div class="bigfoot--map_controls">
+				   <form action="">
+					  <input id="ilat" type="text" name="lat" placeholder="Latitude">
+					  <input id="ilng" type="text" name="long" placeholder="Longitude">
+					  <input type="submit" value="Submit">
+					</form>
+				</div>
+			</div>
+            <div id="bigfoot_charts">
                 <div class="bigfoot_charts_container">
                     <canvas id="bigfoot_charts--state" width="300" height="300"></canvas>
                 </div>
