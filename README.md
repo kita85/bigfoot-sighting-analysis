@@ -1,7 +1,7 @@
 # Bigfoot Sighting Analysis
 A Bigfoot sighting data analysis built using Google Maps API and Chart.js.
 
-Demo: http://kitacranfill.com/bigfoot/
+Demo: https://kitacranfill.com/bigfoot/
 
 
 This sample demonstrates:
