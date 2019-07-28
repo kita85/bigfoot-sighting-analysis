@@ -27,7 +27,7 @@
 
 <nav >
     
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-lib_charts.html">lib/charts</a><ul class='methods'><li data-type='method'><a href="module-lib_charts.html#.chartQuery">chartQuery</a></li><li data-type='method'><a href="module-lib_charts.html#.chartState">chartState</a></li><li data-type='method'><a href="module-lib_charts.html#.chartYear">chartYear</a></li></ul></li><li><a href="module-lib_maps.html">lib/maps</a><ul class='methods'><li data-type='method'><a href="module-lib_maps.html#.geoFail">geoFail</a></li><li data-type='method'><a href="module-lib_maps.html#.initMap">initMap</a></li><li data-type='method'><a href="module-lib_maps.html#.probability">probability</a></li><li data-type='method'><a href="module-lib_maps.html#.radius">radius</a></li><li data-type='method'><a href="module-lib_maps.html#.userLocation">userLocation</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-lib_charts.html">lib/charts</a><ul class='methods'><li data-type='method'><a href="module-lib_charts.html#.chartQuery">chartQuery</a></li><li data-type='method'><a href="module-lib_charts.html#.chartState">chartState</a></li><li data-type='method'><a href="module-lib_charts.html#.chartYear">chartYear</a></li><li data-type='method'><a href="module-lib_charts.html#.tables">tables</a></li></ul></li><li><a href="module-lib_maps.html">lib/maps</a><ul class='methods'><li data-type='method'><a href="module-lib_maps.html#.geoFail">geoFail</a></li><li data-type='method'><a href="module-lib_maps.html#.initMap">initMap</a></li><li data-type='method'><a href="module-lib_maps.html#.probability">probability</a></li><li data-type='method'><a href="module-lib_maps.html#.radius">radius</a></li><li data-type='method'><a href="module-lib_maps.html#.userLocation">userLocation</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -58,34 +58,67 @@
 
     <section class="readme">
         <article><h1>Bigfoot Sighting Analysis</h1>
-<p>A Bigfoot sighting data analysis built using Google Maps API and Chart.js.</p>
-<p>Demo: http://kitacranfill.com/bigfoot/</p>
+<p>This application computes the probability that you will encounter a bigfoot at a particular lat / lng. The
+sighting data used to generate the map and charts are real, however the probability calculation is up for debate.
+It is calculated by doing some arbitrary math with random chance (chances of winning the lottery), proximity, and
+area sightings. Charts and tables are provided to help aid your search and determine optimal season, moon phase,
+and so forth. If you encounter a bigfoot by using this application. I cannot accept responsibility for potential
+injury. Please use at your own risk.</p>
+<p>This code can easily be adapted to a real world scenario. By adding real estate data, you could create
+a heat map for &quot;No Vacancy&quot; properties in a particular area. Thus discovering the optimal locations to
+purchase a vacation rental.</p>
+<ul>
+<li><strong>Demo:</strong> <a href="https://kitacranfill.com/bigfoot/">https://kitacranfill.com/bigfoot/</a></li>
+<li><strong>Visualized Tests:</strong> <a href="https://kitacranfill.com/bigfoot/spec/specrunner.html">https://kitacranfill.com/bigfoot/spec/specrunner.html</a></li>
+<li><strong>Visualized Documentation:</strong> <a href="https://kitacranfill.com/bigfoot/docs">https://kitacranfill.com/bigfoot/docs</a></li>
+</ul>
 <p>This sample demonstrates:</p>
 <ul>
 <li>Use of Ajax and PHP for server communication</li>
 <li>API implementation</li>
 <li>Use of Flex/Responsvie Css</li>
-<li>Use of JavaScript libraries</li>
+<li>Use of JavaScript functions</li>
 <li>Input and output operations</li>
-<li><s>Jest Unit testing</s></li>
+<li>Use of Jasmine for Unit testing</li>
 <li>Use of Git for version control</li>
 <li>Use of JSDoc for documentation</li>
 </ul>
 <h3>Prerequisites</h3>
 <p>Google API Key
-https://developers.google.com/maps/documentation/javascript/tutorial</p>
+<a href="https://developers.google.com/maps/documentation/javascript/tutorial">https://developers.google.com/maps/documentation/javascript/tutorial</a></p>
 <pre class="prettyprint source"><code>&lt;script src=&quot;https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&quot;async defer>&lt;/script>
 </code></pre>
 <h2>Installing</h2>
 <ul>
-<li>Include npm insturctions</li>
+<li>npm install</li>
 </ul>
 <h2>Testing</h2>
-<p>Tests can be executed using</p>
-<pre class="prettyprint source"><code>npm test
+<p>Tests can be executed by browsing to /spec/specrunner.html</p>
+<pre class="prettyprint source"><code>project
+│   README.md
+│   ...    
+│
+└──spec
+   │   index.spec.js			//unit tests
+   │   specrunner.html			//page displaying tests
+   │
+   └───fixtures
+   │   │   index.html			//fixed enviroment in which test are run
+   │
+   │
+   └───jasmine				//jasmine extensions & core files
+   │   │   jasmine-ajax.js
+   │   │   jasmine.jquery.js
+   │   │   ...
+   │
+   │
+   └───support
+       │   jasmine.json			//jasmine core config
+
 </code></pre>
 <h2>Documentation</h2>
-<pre class="prettyprint source"><code>./node_modules/.bin/jsdoc -c jsdoc.conf.json
+<p>Documentation can be generated using</p>
+<pre class="prettyprint source"><code>npm run jsdoc
 </code></pre>
 <h2>Built With</h2>
 <ul>
@@ -96,7 +129,7 @@ https://developers.google.com/maps/documentation/javascript/tutorial</p>
 </ul>
 <h2>Authors</h2>
 <ul>
-<li><strong>Kita Cranfill</strong> - <em>Full Development</em> - <a href="https://github.com/kita86">GitHub</a></li>
+<li><strong>Kita Cranfill</strong> - <em>Development</em> - <a href="https://github.com/kita86">GitHub</a></li>
 </ul>
 <h2>Acknowledgments</h2>
 <ul>
@@ -116,7 +149,7 @@ https://developers.google.com/maps/documentation/javascript/tutorial</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Sat Jun 22 2019 11:42:29 GMT-0400 (Eastern Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Sat Jul 27 2019 21:03:54 GMT-0400 (Eastern Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
