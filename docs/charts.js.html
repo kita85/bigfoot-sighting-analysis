@@ -27,7 +27,7 @@
 
 <nav >
     
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-lib_charts.html">lib/charts</a><ul class='methods'><li data-type='method'><a href="module-lib_charts.html#.chartQuery">chartQuery</a></li><li data-type='method'><a href="module-lib_charts.html#.chartState">chartState</a></li><li data-type='method'><a href="module-lib_charts.html#.chartYear">chartYear</a></li></ul></li><li><a href="module-lib_maps.html">lib/maps</a><ul class='methods'><li data-type='method'><a href="module-lib_maps.html#.geoFail">geoFail</a></li><li data-type='method'><a href="module-lib_maps.html#.geoSuccess">geoSuccess</a></li><li data-type='method'><a href="module-lib_maps.html#.initMap">initMap</a></li><li data-type='method'><a href="module-lib_maps.html#.probability">probability</a></li><li data-type='method'><a href="module-lib_maps.html#.radius">radius</a></li><li data-type='method'><a href="module-lib_maps.html#.userLocation">userLocation</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-lib_charts.html">lib/charts</a><ul class='methods'><li data-type='method'><a href="module-lib_charts.html#.chartQuery">chartQuery</a></li><li data-type='method'><a href="module-lib_charts.html#.chartState">chartState</a></li><li data-type='method'><a href="module-lib_charts.html#.chartYear">chartYear</a></li><li data-type='method'><a href="module-lib_charts.html#.tables">tables</a></li></ul></li><li><a href="module-lib_maps.html">lib/maps</a><ul class='methods'><li data-type='method'><a href="module-lib_maps.html#.geoFail">geoFail</a></li><li data-type='method'><a href="module-lib_maps.html#.initMap">initMap</a></li><li data-type='method'><a href="module-lib_maps.html#.probability">probability</a></li><li data-type='method'><a href="module-lib_maps.html#.radius">radius</a></li><li data-type='method'><a href="module-lib_maps.html#.userLocation">userLocation</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -48,7 +48,9 @@
  * @version 1.0.0
  * @module lib/charts
  */
-$(document).ready(function() {
+
+
+
     var label = []; //Array of chart labels
     var count = []; //Array of sightings by tally
     var chartObjs = [];
@@ -100,7 +102,12 @@ $(document).ready(function() {
                         break;
 
                     case "season":
-                        tables(label, count);
+                        tables(searchValue, label, count);
+                        break;
+
+						
+					case "moon_phase":
+                        tables(searchValue, label, count);
                         break;
                 }
 
@@ -113,13 +120,7 @@ $(document).ready(function() {
 
     }
 
-    //ChartJS chart implementation
-    Chart.defaults.global.defaultFontFamily = "Open Sans";
-    Chart.defaults.scale.gridLines.display = false;
 
-    //Call function that pushes objects to array
-    chartQuery("state", "count", "DESC", 10);
-    chartQuery("year", "year", "ASC", 100);
 
 
     /**
@@ -174,40 +175,21 @@ $(document).ready(function() {
 
     }
 
-    //Loop throgh each of the #bigfoot_tables
-    $("#bigfoot_tables div").each(function(index) {
-
-        //Split this class. Use split as parameter for charts function
-        var searchValue = $(this).prop("class").split("bigfoot_tables--");
-
-        chartQuery(searchValue, searchValue, "ASC", 10);
-        //Create table based on Ajax output
-        function tables(label, count) {
-            $.each(label, function(key, value) {
-                $(".bigfoot_tables--" + searchValue[1] + " table").append("&lt;tr>&lt;td>" + label[key] + "&lt;/td>&lt;td>" + count[key] + "&lt;/td>&lt;/tr>");
-            });
-        }
-    });
+    /**
+     * Fill in tables based on Ajax output
+     * @param {string} label - Research Parameter available in dataset.
+     * @param {number} count - Number of times this label has been counted in the database.
+     * @memberof module:lib/charts
+     */	
+    function tables(searchValue,label, count) {
+        $.each(label, function(key, value) {
+            $(".bigfoot_tables--" + searchValue + " table").append("&lt;tr>&lt;td>" + label[key] + "&lt;/td>&lt;td>" + count[key] + "&lt;/td>&lt;/tr>");
+        });
+    }	
+	
 
 
-
-    //Chart or table navigation in right panel
-    $("nav ul li").click(function() {
-        //remove active class from all
-        $("nav ul li, #bigfoot_charts, #bigfoot_tables").removeClass("active");
-        //get active parameter
-        var activeValue = $(this).prop("class").split("bigfoot_enviroment--");
-        //set icon and nav button as active
-        $(this).addClass("active");
-        $("#bigfoot_" + activeValue[1]).addClass("active");
-    });
-
-    //Hide Chart Menu
-    $(".chartMenuButton").click(function() {
-        $("#bigfoot_enviroment").toggleClass("active");
-        $(this).toggleClass("fa-arrow-right").toggleClass("fa-arrow-left");
-    });
-});</code></pre>
+</code></pre>
         </article>
     </section>
 
@@ -221,7 +203,7 @@ $(document).ready(function() {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Sun Jun 16 2019 18:09:08 GMT-0400 (Eastern Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Sat Jul 27 2019 21:03:54 GMT-0400 (Eastern Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
