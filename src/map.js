@@ -8,7 +8,6 @@ var map;
 var sightingJson;
 
 
-
 /**
  * Creates a map with Bigfoot sighting data. Also asks user permission to use HTML5 geolocation
  * @example
@@ -38,42 +37,45 @@ function initMap() {
         var markerDate = event.feature.getProperty("date");
         var markerSummary = event.feature.getProperty("summary");
 
-        sightingInfo.setContent(markerName + "</br>" + markerDate + "</br>" + markerSummary);
+        sightingInfo.setContent("<strong>Case #:</strong> " + markerName + "</br>" + markerDate + "</br>" + markerSummary);
         sightingInfo.setPosition(event.feature.getGeometry().get());
         sightingInfo.open(map);
     });
 
-	//Get URL parmeters if available.
-	if (window.location.search.indexOf('?') > -1) {
-		var parameters = window.location.toString().split("?");
-		parameters = parameters[1].split("&");
-		var ilat = parameters[0].split("=");
-		var ilng = parameters[1].split("=");
-		
-		//***Add error handling
-		ilat = Number(ilat[1]);
-		ilng = Number(ilng[1]);
-		
-		var pos = new google.maps.LatLng({lat: ilat,lng: ilng});
+    //Get URL parmeters if available.
+    if (window.location.search.indexOf('?') > -1) {
+        var parameters = window.location.toString().split("?");
+        parameters = parameters[1].split("&");
+        var ilat = parameters[0].split("=");
+        var ilng = parameters[1].split("=");
 
-		userLocation(pos);
-	} else {
-		//Else get HTML5 geolocation if available.
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function(position) {
-				//Set pos to current lat/lng.
-				var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);				
-				userLocation(pos);
-				//geoSuccess(position);
-			}, function() {
-				//Couldnt find geolocation. Manually set user marker.
-				geoFail();
-			});
-		} else {
-			// Browser doesn't support Geolocation. Manually set user marker.
-			geoFail();
-		}
-	}
+        //***Add error handling
+        ilat = Number(ilat[1]);
+        ilng = Number(ilng[1]);
+
+        var pos = new google.maps.LatLng({
+            lat: ilat,
+            lng: ilng
+        });
+
+        userLocation(pos);
+    } else {
+        //Else get HTML5 geolocation if available.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                //Set pos to current lat/lng.
+                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                userLocation(pos);
+                //geoSuccess(position);
+            }, function() {
+                //Couldnt find geolocation. Manually set user marker.
+                geoFail();
+            });
+        } else {
+            // Browser doesn't support Geolocation. Manually set user marker.
+            geoFail();
+        }
+    }
 }
 
 
@@ -102,8 +104,8 @@ function geoFail() {
 function userLocation(pos) {
     $("#ilat").val(pos.lat); //add parameters to lat input
     $("#ilng").val(pos.lng); //add parameters to lng input
-	
-	var userMarker = new google.maps.Marker({
+
+    var userMarker = new google.maps.Marker({
         position: pos,
         map: map,
         draggable: true
@@ -122,6 +124,8 @@ function userLocation(pos) {
     //Listen for current location marker drag event end. Update lat/lng, redraw radius, & probability.
     google.maps.event.addListener(userMarker, 'dragend', function() {
         pos = userMarker.getPosition();
+        $("#ilat").val(pos.lat); //add parameters to lat input
+        $("#ilng").val(pos.lng); //add parameters to lng input
         radius_circle.setMap(null);
         radius(pos);
         probability(pos, sightingJson);
@@ -192,21 +196,11 @@ function probability(pos, sightingJson) {
 
     //If location radius has sightings, do probablity math. Otherwise, it is random change.
     if (areaSightings != 0) {
-        var probablity = randomChance * (areaSightings * 10) * (proximity / areaSightings * 10);
+        probablity = randomChance * (areaSightings * 10) * (proximity / areaSightings * 10);
     } else {
-        var probablity = randomChance; //Never an absolute 0 chance of seeing Bigfoot!
+        probablity = randomChance; //Never an absolute 0 chance of seeing Bigfoot!
     }
+
+    $("#bigfoot_mapping--proximity span").text(probablity.toFixed(8) + "%");
     return probablity.toFixed(8);
-       $("#bigfoot_mapping--proximity span").text(probablity.toFixed(8) + "%");
 }
-
-
-/*
-module.exports = {
-    initMap: initMap,
-    geoSuccess: geoSuccess,
-    geoFail: geoFail,
-    userLocation: userLocation,
-    radius: radius,
-    probability: probability
-};*/
