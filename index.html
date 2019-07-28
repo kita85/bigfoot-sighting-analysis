@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Bigfoot Locator</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans:400,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<script src="inc/jquery-3.4.1.min.js"></script>
+    <script src="inc/chart.js@2.8.0"></script>
+	<script src="src/charts.js"></script>
+	
+</head>
+
+<body>
+    <div class="wrapper">
+	
+        <!--Profile block-->
+        <div id="bigfoot">
+            <div class="bigfoot--image"></div>
+        </div>
+		
+        <!--Map block-->
+        <div id="bigfoot_mapping" class="col col-4-5">
+            <div id="bigfoot_mapping--proximity">
+                <i class="fas fa-info-circle"></i>
+                <p>Geo Message | </p>
+                <p>You have a <span>0.000%</span> of seeing a Bigfoot based on your currect location.</p>
+                <i class="chartMenuButton fas fa-arrow-right" title="Hide Chart Menu"></i>
+            </div>
+            <div id="bigfoot_mapping--map"></div>
+            <!--Google Map API-->
+            <script src="src/map.js"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcFPiPU-iDyfrTqqkbgDv5_zJmMv5dHow&callback=initMap" async defer></script>
+			
+	   </div>
+		
+        <!--Chart block-->
+        <div id="bigfoot_enviroment" class="col col-1-5 active">
+            <h3>Bigfoot's Optimal Enviroment</h3>
+            <p class="subheader">Based on Bigfoot Sighting Data</p>
+            <nav>
+                <ul>
+                    <li class="bigfoot_enviroment--search active">Map Controls</li>
+					<li class="bigfoot_enviroment--charts">Charts</li>
+                    <li class="bigfoot_enviroment--tables">Tables</li>
+                </ul>
+            </nav>
+			<div id="bigfoot_search" class="active">			
+				<!--Input Popup-->
+				<div class="bigfoot--map_controls">
+				   <p>By Selecting a location on the map, the <strong>Geo Message</strong> at the top of the page will display your chances of seeing a Bigfoot at that location.</p>
+				   <form>
+					  <label>Latitude</label>
+					  <input id="ilat" type="number" name="lat" max="70" min="22" step="0.00000000000001" /><br><br>
+					  <label>Longitude</label>
+					  <input id="ilng" type="number" name="long" smax="-65" min="-170" step="0.00000000000001" />
+					  <input type="submit" value="Submit">
+					</form>
+				</div>
+			</div>
+            <div id="bigfoot_charts">
+                <div class="bigfoot_charts_container">
+                    <canvas id="bigfoot_charts--state" width="300" height="300"></canvas>
+                </div>
+                <div class="bigfoot_charts_container">
+                    <canvas id="bigfoot_charts--year" width="300" height="300"></canvas>
+                </div>
+            </div>
+            <div id="bigfoot_tables">
+                <div class="bigfoot_tables--season">
+                    <table>
+                        <tr>
+                            <th>Season</th>
+                            <th># of Sightings</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="bigfoot_tables--moon_phase">
+                    <table>
+                        <tr>
+                            <th>Moon Phase</th>
+                            <th># of Sightings</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div><!-- end wrapper -->
+</body>
+
+<script>
+$(document).ready(function() {
+    
+	//ChartJS chart implementation
+    Chart.defaults.global.defaultFontFamily = "Open Sans";
+    Chart.defaults.scale.gridLines.display = false;
+
+    //Call function that pushes objects to array
+    chartQuery("state", "count", "DESC", 10);
+    chartQuery("year", "year", "ASC", 100);
+	
+	//Loop throgh each of the HTML #bigfoot_tables
+    $("#bigfoot_tables div").each(function(index) {
+
+        //Split this class. Use split as parameter for charts function
+        var searchValue = $(this).prop("class").split("bigfoot_tables--");
+        chartQuery(searchValue[1], searchValue[1], "ASC", 10);
+
+    });
+
+
+    //Chart or table navigation in right panel
+    $("nav ul li").click(function() {
+        //remove active class from all
+        $("nav ul li, #bigfoot_search, #bigfoot_charts, #bigfoot_tables").removeClass("active");
+        //get active parameter
+        var activeValue = $(this).prop("class").split("bigfoot_enviroment--");
+        //set icon and nav button as active
+        $(this).addClass("active");
+        $("#bigfoot_" + activeValue[1]).addClass("active");
+    });
+
+    //Hide Chart Menu
+    $(".chartMenuButton").click(function() {
+        $("#bigfoot_enviroment, #bigfoot_mapping--proximity").toggleClass("active");		
+        $(this).toggleClass("fa-arrow-right").toggleClass("fa-arrow-left");
+    });
+	
+
+	
+});
+</script>
+
+</html>
