@@ -1,9 +1,9 @@
 <?php
 
 function db() {
-	$host="localhost";
+	$host="mysql";
 	$user="root";
-	$password="";
+	$password="P@55w0rd";
 	$dbname="bigfoot";
 
 	//define connection string
