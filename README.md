@@ -43,10 +43,10 @@ Instructions on how to obtain your own API key visit this
 ```
 
 #### Node
-In order to run this container you'll need docker installed.
+In order to run jsdoc you'll need node installed.
 
-* [Windows](https://docs.docker.com/windows/started)
-* [Linux](https://docs.docker.com/linux/started/)
+* [https://nodejs.org/en/](https://nodejs.org/en/)
+
 
 ## Installing
 Install node modules to setup development enviroment. 
