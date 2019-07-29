@@ -35,7 +35,7 @@ This sample demonstrates:
 ### Prerequisites
 
 #### Google API Key
-Instructions to obtain your own API key visit this 
+Instructions on how to obtain your own API key visit this 
 [tutorial](https://developers.google.com/maps/documentation/javascript/tutorial).
 
 ```
@@ -49,6 +49,7 @@ In order to run this container you'll need docker installed.
 * [Linux](https://docs.docker.com/linux/started/)
 
 ## Installing
+In effot to keep the repository clean, docker files have been moved to their own folder. Download only the ***docker*** folder in the repository to begin building the container.
 
 Build the container
 ```
@@ -60,8 +61,8 @@ Start the container in the background
 docker-compose up -d
 ```
 
-#### Import the database
-In your browser, navigate to `localhost:8080`
+### Import the database
+In your browser, navigate to [`localhost:8080`](localhost:8080)
 
 Login to phpMyAdmin
 
@@ -71,16 +72,16 @@ Login to phpMyAdmin
 > **NOTE:** Login credentials can be changed in inc/conn.php and docker/docker-compose.yml
 
 
-Import sql file at `localhost:8080/db_import.php?db=bigfoot`
+Import sql file at [`localhost:8080/db_import.php?db=bigfoot`](localhost:8080/db_import.php?db=bigfoot)
 
-* Click "Choose File"
-* Choose *Docker/bfro_reports_geocoded.sql*
-* Click "Go"
+1. Click "Choose File"
+2. Choose *docker/bfro_reports_geocoded.sql*
+3. Click "Go"
 
 
 
 #### Linux
-Site now available at `localhost:8080/bigfoot-sighting analysis`
+Site now available at [`localhost:8080/bigfoot-sighting analysis`](localhost:8080/bigfoot-sighting analysis)
 
 #### Windows
 Find Windows www port by using
@@ -114,14 +115,7 @@ project
    │   │   index.html			//fixed enviroment in which test are run
    │
    │
-   └───jasmine
-   │   │   jasmine-ajax.js
-   │   │   jasmine.jquery.js
-   │   │   ...
-   │
-   │
-   └───support
-       │   jasmine.json
+   └─── ...
 
 ```
 
