@@ -32,7 +32,7 @@ This sample demonstrates:
 
 
 
-### Prerequisites
+## Prerequisites
 
 #### Google API Key
 Instructions on how to obtain your own API key visit this 
@@ -69,17 +69,17 @@ Login to phpMyAdmin
 * demo user: root
 * demo pass: P@55w0rd
 
-> **NOTE:** Login credentials can be changed in inc/conn.php and docker/docker-compose.yml
+> **NOTE:** Login credentials can be changed in ***inc/conn.php*** and ***docker/docker-compose.yml***
 
 
 Import sql file at [`localhost:8080/db_import.php?db=bigfoot`](http://localhost:8080/db_import.php?db=bigfoot)
 
 1. Click "Choose File"
-2. Choose *docker/bfro_reports_geocoded.sql*
+2. Choose ***docker/bfro_reports_geocoded.sql***
 3. Click "Go"
 
 
-
+### View the site
 #### Linux
 Site now available at [`localhost:8080/bigfoot-sighting analysis`](http://localhost:8080/bigfoot-sighting-analysis)
 
