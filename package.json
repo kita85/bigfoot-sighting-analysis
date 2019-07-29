@@ -10,7 +10,7 @@
   "author": "Kita Cranfill",
   "license": "ISC",
   "devDependencies": {
-    "jsdoc": "^3.6.2",
+    "jsdoc": "^3.6.2"
   },
   "dependencies": {
     "docdash": "^1.1.1",
