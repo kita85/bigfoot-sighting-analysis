@@ -62,7 +62,7 @@ docker-compose up -d
 ```
 
 ### Import the database
-In your browser, navigate to [`localhost:8080`](localhost:8080)
+In your browser, navigate to [`localhost:8080`](http://localhost:8080/)
 
 Login to phpMyAdmin
 
@@ -72,7 +72,7 @@ Login to phpMyAdmin
 > **NOTE:** Login credentials can be changed in inc/conn.php and docker/docker-compose.yml
 
 
-Import sql file at [`localhost:8080/db_import.php?db=bigfoot`](localhost:8080/db_import.php?db=bigfoot)
+Import sql file at [`localhost:8080/db_import.php?db=bigfoot`](http://localhost:8080/db_import.php?db=bigfoot)
 
 1. Click "Choose File"
 2. Choose *docker/bfro_reports_geocoded.sql*
@@ -81,7 +81,7 @@ Import sql file at [`localhost:8080/db_import.php?db=bigfoot`](localhost:8080/db
 
 
 #### Linux
-Site now available at [`localhost:8080/bigfoot-sighting analysis`](localhost:8080/bigfoot-sighting analysis)
+Site now available at [`localhost:8080/bigfoot-sighting analysis`](http://localhost:8080/bigfoot-sighting-analysis)
 
 #### Windows
 Find Windows www port by using
@@ -100,7 +100,7 @@ Map not working? Make sure to include your Google Map API key in index.html
 
 
 ## Testing
-Tests can be executed by browsing to /spec/specrunner.html
+Tests can be executed by browsing to [`/spec/specrunner.html`](http://localhost:8080/bigfoot-sighting-analysis/spec/specrunner.html)
 
 ```
 project
