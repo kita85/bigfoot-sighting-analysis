@@ -42,62 +42,17 @@ Instructions on how to obtain your own API key visit this
 <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"async defer></script>
 ```
 
-#### Docker
+#### Node
 In order to run this container you'll need docker installed.
 
 * [Windows](https://docs.docker.com/windows/started)
 * [Linux](https://docs.docker.com/linux/started/)
 
 ## Installing
-In effot to keep the repository clean, docker files have been moved to their own folder. Download only the ***docker*** folder in the repository to begin building the container.
-
-Build the container
+Install node modules to setup development enviroment. 
 ```
-docker-compose build
+npm install
 ```
-
-Start the container in the background
-```
-docker-compose up -d
-```
-
-### Import the database
-In your browser, navigate to [`localhost:8080`](http://localhost:8080/)
-
-Login to phpMyAdmin
-
-* demo user: root
-* demo pass: P@55w0rd
-
-> **NOTE:** Login credentials can be changed in ***inc/conn.php*** and ***docker/docker-compose.yml***
-
-
-Import sql file at [`localhost:8080/db_import.php?db=bigfoot`](http://localhost:8080/db_import.php?db=bigfoot)
-
-1. Click "Choose File"
-2. Choose ***docker/bfro_reports_geocoded.sql***
-3. Click "Go"
-
-
-### View the site
-#### Linux
-Site now available at [`localhost:8080/bigfoot-sighting analysis`](http://localhost:8080/bigfoot-sighting-analysis)
-
-#### Windows
-Find Windows www port by using
-```
-docker ps
-```
-
-![Find Windows Port](https://kitacranfill.com/bigfoot/images/port.png)
-
-Site now available at `localhost:[winport]/bigfoot-sighting analysis`
-
-
-
-### Troubleshooting:
-Map not working? Make sure to include your Google Map API key in index.html
-
 
 ## Testing
 Tests can be executed by browsing to [`/spec/specrunner.html`](http://localhost:8080/bigfoot-sighting-analysis/spec/specrunner.html)
@@ -125,7 +80,7 @@ project
 Documentation can be generated using
 
 ```
-npm run jsdoc
+./node_modules/.bin/jsdoc -c jsdoc.conf.json
 ```
 
 ## Built With
