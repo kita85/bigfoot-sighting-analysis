@@ -34,16 +34,68 @@ This sample demonstrates:
 
 ### Prerequisites
 
-Google API Key
-[https://developers.google.com/maps/documentation/javascript/tutorial](https://developers.google.com/maps/documentation/javascript/tutorial)
+#### Google API Key
+Instructions to obtain your own API key visit this 
+[tutorial](https://developers.google.com/maps/documentation/javascript/tutorial).
 
 ```
 <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"async defer></script>
 ```
 
+#### Docker
+In order to run this container you'll need docker installed.
+
+* [Windows](https://docs.docker.com/windows/started)
+* [Linux](https://docs.docker.com/linux/started/)
+
 ## Installing
 
-* Docker Container Instructions
+Build the container
+```
+docker-compose build
+```
+
+Start the container in the background
+```
+docker-compose up -d
+```
+
+#### Import the database
+In your browser, navigate to `localhost:8080`
+
+Login to phpMyAdmin
+
+* demo user: root
+* demo pass: P@55w0rd
+
+> **NOTE:** Login credentials can be changed in inc/conn.php and docker/docker-compose.yml
+
+
+Import sql file at `localhost:8080/db_import.php?db=bigfoot`
+
+* Click "Choose File"
+* Choose *Docker/bfro_reports_geocoded.sql*
+* Click "Go"
+
+
+
+#### Linux
+Site now available at `localhost:8080/bigfoot-sighting analysis`
+
+#### Windows
+Find Windows www port by using
+```
+docker ps
+```
+
+![Find Windows Port](https://kitacranfill.com/bigfoot/images/port.png)
+
+Site now available at `localhost:[winport]/bigfoot-sighting analysis`
+
+
+
+### Troubleshooting:
+Map not working? Make sure to include your Google Map API key in index.html
 
 
 ## Testing
