@@ -55,7 +55,7 @@ npm install
 ```
 
 ## Testing
-Tests can be executed by browsing to [`/spec/specrunner.html`](http://localhost:8080/bigfoot-sighting-analysis/spec/specrunner.html)
+Tests can be executed by browsing to [`/spec/specrunner.html`](https://kitacranfill.com/bigfoot/spec/specrunner.html)
 
 ```
 project
@@ -75,13 +75,13 @@ project
 ```
 
 
-
 ## Documentation
 Documentation can be generated using
 
 ```
 ./node_modules/.bin/jsdoc -c jsdoc.conf.json
 ```
+
 
 ## Built With
 
