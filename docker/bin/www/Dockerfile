@@ -4,7 +4,8 @@ RUN apt-get -y update --fix-missing
 RUN apt-get upgrade -y
 
 # Install useful tools
-RUN apt-get -y install apt-utils nano wget dialog nodejs
+RUN apt-get -y install apt-utils nano wget dialog
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash  &&  apt-get install -y nodejs
 
 # Install important libraries
 RUN apt-get -y install --fix-missing apt-utils build-essential git curl libcurl3 libcurl3-dev zip openssl
