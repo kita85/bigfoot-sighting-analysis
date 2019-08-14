@@ -81,7 +81,7 @@ Import sql file at [`localhost:8080/db_import.php?db=bigfoot`](http://localhost:
 
 ### View the site
 #### Linux
-Site now available at [`localhost:8080/bigfoot-sighting analysis`](http://localhost:8080/bigfoot-sighting-analysis)
+Site now available at [`localhost/bigfoot-sighting analysis`](http://localhost/bigfoot-sighting-analysis)
 
 #### Windows
 Find Windows www port by using
