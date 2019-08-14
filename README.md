@@ -61,8 +61,7 @@ Start the container in the background
 docker-compose up -d
 ```
 
-### Import the database
-Import sql file
+Import the database
 ```
 docker exec -i 5.7-mysql mysql -uroot -pP@55w0rd bigfoot < bfro_reports_geocoded.sql
 ```
