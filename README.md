@@ -62,25 +62,19 @@ docker-compose up -d
 ```
 
 ### Import the database
-In your browser, navigate to [`localhost:8080`](http://localhost:8080/)
-
-Login to phpMyAdmin
-
-* demo user: root
-* demo pass: P@55w0rd
+Import sql file
+```
+docker exec -i 5.7-mysql mysql -uroot -pP@55w0rd bigfoot < bfro_reports_geocoded.sql
+```
 
 > **NOTE:** Login credentials can be changed in ***inc/conn.php*** and ***docker/docker-compose.yml***
 
 
-Import sql file at [`localhost:8080/db_import.php?db=bigfoot`](http://localhost:8080/db_import.php?db=bigfoot)
 
-1. Click "Choose File"
-2. Choose ***docker/bfro_reports_geocoded.sql***
-3. Click "Go"
 
 
 ### View the site
-#### Linux
+#### Mac/Linux
 Site now available at [`localhost/bigfoot-sighting analysis`](http://localhost/bigfoot-sighting-analysis)
 
 #### Windows
