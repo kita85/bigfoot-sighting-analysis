@@ -45,11 +45,12 @@ Instructions on how to obtain your own API key visit this
 #### Docker
 In order to run this container you'll need docker installed.
 
-* [Windows](https://docs.docker.com/windows/started)
-* [Linux](https://docs.docker.com/linux/started/)
+* [Windows](https://docs.docker.com/docker-for-windows/install/)
+* [Linux](https://docs.docker.com/install/linux/docker-ce/centos/)
+* [Mac](https://docs.docker.com/docker-for-mac/install/)
 
 ## Installing
-In effot to keep the repository clean, docker files have been moved to their own folder. Download only the ***docker*** folder in the repository to begin building the container.
+In effot to keep the repository clean, docker files have been moved to their own folder. Download the repo and navigate to the ***docker*** directory inside your favorite terminal.
 
 Build the container
 ```
@@ -74,17 +75,17 @@ docker exec -i 5.7-mysql mysql -uroot -pP@55w0rd bigfoot < bfro_reports_geocoded
 
 ### View the site
 #### Mac/Linux
-Site now available at [`localhost/bigfoot-sighting analysis`](http://localhost/bigfoot-sighting-analysis)
+Site now available at [`localhost`](http://localhost/)
 
 #### Windows
 Find Windows www port by using
 ```
-docker ps
+docker container ls
 ```
 
 ![Find Windows Port](https://kitacranfill.com/bigfoot/images/port.png)
 
-Site now available at `localhost:[winport]/bigfoot-sighting analysis`
+Site now available at `localhost:[winport]`
 
 
 
@@ -93,7 +94,7 @@ Map not working? Make sure to include your Google Map API key in index.html
 
 
 ## Testing
-Tests can be executed by browsing to [`/spec/specrunner.html`](http://localhost:8080/bigfoot-sighting-analysis/spec/specrunner.html)
+Tests can be executed by browsing to [`/spec/specrunner.html`](http://localhost/spec/specrunner.html)
 
 ```
 project
@@ -118,7 +119,7 @@ project
 Documentation can be generated using
 
 ```
-npm run jsdoc
+docker exec -it 7.2.x-www npm run jsdoc
 ```
 
 ## Built With
