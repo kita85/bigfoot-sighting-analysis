@@ -45,6 +45,7 @@ Instructions on how to obtain your own API key visit this
 #### Docker
 In order to run this container you'll need docker installed.
 
+
 * [Windows](https://docs.docker.com/docker-for-windows/install/)
 * [Linux](https://docs.docker.com/install/linux/docker-ce/centos/)
 * [Mac](https://docs.docker.com/docker-for-mac/install/)
@@ -96,6 +97,7 @@ Map not working? Make sure to include your Google Map API key in index.html
 ## Testing
 Tests can be executed by browsing to [`/spec/specrunner.html`](http://localhost/spec/specrunner.html)
 
+
 ```
 project
 │   README.md
@@ -114,13 +116,13 @@ project
 ```
 
 
-
 ## Documentation
 Documentation can be generated using
 
 ```
 docker exec -it 7.2.x-www npm run jsdoc
 ```
+
 
 ## Built With
 
