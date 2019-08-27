@@ -42,20 +42,61 @@ Instructions on how to obtain your own API key visit this
 <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"async defer></script>
 ```
 
-#### Node
-In order to run jsdoc you'll need node installed.
+#### Docker
+In order to run this container you'll need docker installed.
 
-* [https://nodejs.org/en/](https://nodejs.org/en/)
 
+* [Windows](https://docs.docker.com/docker-for-windows/install/)
+* [Linux](https://docs.docker.com/install/linux/docker-ce/centos/)
+* [Mac](https://docs.docker.com/docker-for-mac/install/)
 
 ## Installing
-Install node modules to setup development enviroment. 
+In effot to keep the repository clean, docker files have been moved to their own folder. Clone the repo and navigate to the ***docker*** directory inside your favorite terminal.
+
+Build the container
 ```
-npm install
+docker-compose build
 ```
 
+Start the container in the background
+```
+docker-compose up -d
+```
+
+Import the database
+```
+docker exec -i 5.7-mysql mysql -uroot -pP@55w0rd bigfoot < bfro_reports_geocoded.sql
+```
+
+> **NOTE:** Login credentials can be changed in ***inc/conn.php*** and ***docker/docker-compose.yml***
+
+
+
+
+
+### View the site
+#### Mac/Linux
+Site now available at [`localhost`](http://localhost/)
+
+#### Windows
+Find Windows www port by using
+```
+docker container ls
+```
+
+![Find Windows Port](https://kitacranfill.com/bigfoot/images/port.png)
+
+Site now available at `localhost:[winport]`
+
+
+
+### Troubleshooting:
+Map not working? Make sure to include your Google Map API key in index.html
+
+
 ## Testing
-Tests can be executed by browsing to [`/spec/specrunner.html`](https://kitacranfill.com/bigfoot/spec/specrunner.html)
+Tests can be executed by browsing to [`/spec/specrunner.html`](http://localhost/spec/specrunner.html)
+
 
 ```
 project
@@ -79,7 +120,7 @@ project
 Documentation can be generated using
 
 ```
-./node_modules/.bin/jsdoc -c jsdoc.conf.json
+docker exec -it 7.2.x-www npm run jsdoc
 ```
 
 
