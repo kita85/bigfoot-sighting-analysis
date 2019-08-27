@@ -50,7 +50,7 @@ In order to run this container you'll need docker installed.
 * [Mac](https://docs.docker.com/docker-for-mac/install/)
 
 ## Installing
-In effot to keep the repository clean, docker files have been moved to their own folder. Download the repo and navigate to the ***docker*** directory inside your favorite terminal.
+In effot to keep the repository clean, docker files have been moved to their own folder. Clone the repo and navigate to the ***docker*** directory inside your favorite terminal.
 
 Build the container
 ```
