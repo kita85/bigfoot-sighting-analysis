@@ -43,13 +43,15 @@ body {
 	flex-grow: 1;
 }
 
-
+form {
+    margin-top: 25px;
+}
 /*************** TEXT ***************/
 
 h3 {
 	margin: 0px 0px 0px;
 	font-size: 13px;
-	color: white;
+	color: #292a38;
 	text-transform: uppercase;
 }
 
@@ -58,7 +60,11 @@ h3 {
 	font-size: 12px;
 	color: #00bcdc;
 }
-
+.testing p {
+    margin: 0px;
+    color: #d40505;
+	font-size: 12px;
+}
 
 /*************** ELEMENTS ***************/
 
@@ -106,8 +112,47 @@ i {
 	transition: .5s;
 	cursor: pointer;
 }
-
-
+i.fas.fa-plus,
+i.fas.fa-minus {
+    color: #d8d8d8;
+    background-color: #363742;
+    padding: 17px;
+    border-radius: 100px;
+    margin-top: 10px;
+}
+i.fas.fa-plus:hover {
+    background-color: #434452;
+	cursor: pointer;
+}
+i.fas.fa-exclamation-circle {
+    color: #fbbc00;
+}
+/*************** ADD SIGHTINGS BLOCK ***************/
+#add_sighting {
+    display: none;
+	position: fixed;
+    background-color: white;
+    z-index: 100;
+    padding: 30px;
+	left: 70px;
+}
+.info_bar {
+	padding: 10px;
+    background-color: #000000;
+    color: white;
+	position: absolute;
+    z-index: 1000;
+	width: calc(100% - 20px);
+	display: none;
+}
+.info_bar strong {
+    font-size: 12px;
+    text-transform: uppercase;
+	color: #fbbc00;
+}
+.info_bar a {
+    color: #d8d8d8;
+}
 /*************** PROFILE BLOCK ***************/
 
 #bigfoot {
@@ -172,10 +217,6 @@ nav li:hover {
 	margin-right: 0px;
 }
 
-#bigfoot_enviroment h3 {
-	color: #292a38;
-}
-
 .bigfoot_enviroment {
 	margin-right: 20px;
 }
@@ -217,7 +258,12 @@ nav li:hover {
 	margin: 20px auto 0px;
 	max-width: 300px;
 }
-
+fieldset {
+    border: 0px solid;
+    background-color: #f7f7f7;
+    padding-top: 20px;
+	margin-bottom: 25px;
+}
 
 /*************** MAP BLOCK ***************/
 
@@ -260,7 +306,7 @@ nav li:hover {
 	max-width: 300px;
 }
 
-.bigfoot--map_controls input[type="number"] {
+input[type="number"], input[type="text"] {
 	margin: 5px 0px;
 	padding: 5px;
 	width: calc(100% - 12px);
@@ -269,7 +315,7 @@ nav li:hover {
 	color: #777777;
 }
 
-.bigfoot--map_controls input[type="submit"] {
+input[type="submit"] {
 	padding: 10px;
 	width: 100%;
 	background-color: #00c2e3;
@@ -278,7 +324,9 @@ nav li:hover {
 	text-transform: uppercase;
 	cursor: pointer;
 }
-
+img.markerImage {
+	max-width: 200px;
+}
 
 /*************** RESPONSIVE ***************/
 

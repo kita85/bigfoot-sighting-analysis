@@ -12,15 +12,64 @@
 	<script src="inc/jquery-3.4.1.min.js"></script>
     <script src="inc/chart.js@2.8.0"></script>
 	<script src="src/charts.js"></script>
-	
+	<script src="src/map.js"></script>
 </head>
 
 <body>
+ <!--Add Sighting block-->
+  <div id="add_sighting">
+    <h3>Tell Us About Your Sighting</h3>
+    <p class="subheader">*Please login to submit Alien Sightings</p>
+       <div class="add_sighting--form">
+
+        <!-- Form -->
+        <form method='post' enctype='multipart/form-data'>
+                  <label for="type">Sighting Type</label>
+                  <input type="radio" name="type" value="Alien"> Alien
+                  <input type="radio" name="type" value="Bigfoot" checked> Bigfoot<br><br>
+                  
+                  <label for="state">State</label>
+                  <input type="text" name="state" value="Tennessee"><br>
+                  
+                  <label for="season">season</label>
+                  <input type="text" name="season" value="Summer"><br>
+                  
+                  <label for="title">title</label>
+                  <input type="text" name="title" value="Short Description"><br>
+                  
+                  <label for="latitude">latitude</label>
+                  <input type="text" name="latitude" value="36.105"><br>
+                  
+                  <label for="longitude">longitude</label>
+                  <input type="text" name="longitude" value="-84.38335"><br>
+                  
+                  <label for="date">date</label>
+                  <input type="text" name="date" value="8/26/2018"><br>
+                  
+                  <label for="year">year</label>
+                  <input type="text" name="year" value="2018"><br>
+                  
+                  <label for="number">number</label>
+                  <input type="text" name="number" value="58126"><br>
+                  
+                  <label for="moon_phase">moon_phase</label>
+                  <input type="text" name="moon_phase" value="0.51"><br>
+                  
+                  <label for="image">Upload Picture</label>
+                  <input type='file' name='file'><br><br>
+
+                  <input type='submit' name='submit' value='Submit'>
+        </form>
+
+    </div>
+</div>
+ 
     <div class="wrapper">
 	
         <!--Profile block-->
         <div id="bigfoot">
             <div class="bigfoot--image"></div>
+			<i class="fas fa-plus"></i>
         </div>
 		
         <!--Map block-->
@@ -33,8 +82,8 @@
             </div>
             <div id="bigfoot_mapping--map"></div>
             <!--Google Map API-->
-            <script src="src/map.js"></script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=APIKEY&callback=initMap" async defer></script>
+            
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcFPiPU-iDyfrTqqkbgDv5_zJmMv5dHow&callback=initMap" async defer></script>
 			
 	   </div>
 		
@@ -53,6 +102,17 @@
 				<!--Input Popup-->
 				<div class="bigfoot--map_controls">
 				   <p>By Selecting a location on the map, the <strong>Geo Message</strong> at the top of the page will display your chances of seeing a Bigfoot at that location.</p>
+				   
+				   <form>
+					 <label>Radius</label><br>
+					 <input id="iradius" type="range" step="10000" min="10000" max="100000" value="10000"onchange="updateRadius(iradius.value)">
+				   </form>
+				   
+				   <form>
+					 <label>Search by Zip Code</label><br>
+					<input id="izip" type="number" name="zip" >
+				   </form>
+				   <p>or</p>
 				   <form>
 					  <label>Latitude</label>
 					  <input id="ilat" type="number" name="lat" max="70" min="22" step="0.00000000000001" /><br><br>
@@ -130,7 +190,11 @@ $(document).ready(function() {
         $(this).toggleClass("fa-arrow-right").toggleClass("fa-arrow-left");
     });
 	
-
+	//Open Add Sighting Menu
+    $("#bigfoot .fa-plus").click(function() {
+        $("#add_sighting").toggle();		
+        //$(this).toggleClass("fa-arrow-right").toggleClass("fa-arrow-left");
+    });
 	
 });
 </script>

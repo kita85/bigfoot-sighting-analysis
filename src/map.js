@@ -6,7 +6,8 @@
  */
 var map;
 var sightingJson;
-
+var iradius = 10000;
+var pos;
 
 /**
  * Creates a map with Bigfoot sighting data. Also asks user permission to use HTML5 geolocation
@@ -22,12 +23,42 @@ function initMap() {
     });
 
     //Load Geo Json File
-    map.data.loadGeoJson("inc/bfro_reports.json");
+    //map.data.loadGeoJson("inc/bfro_reports.json");
+	    $.ajax({
+        type: "POST",
+        url: 'inc/getJson.php',
+		dataType: "json",
+        success: function(data) {
+			//var geojson = map.data.addGeoJson(JSON.parse(data));
+            map.data.addGeoJson(data);
+			
+        },
+        error: function(data) {
+            console.log(data);
+        }
 
-    //Set a new icon
-    map.data.setStyle({
-        icon: "images/marker.png"
     });
+
+	
+	
+	
+    //Set a new icon
+		map.data.setStyle(function(feature) {
+			//Find marker type
+			var markerType = feature.getProperty("sighting");
+				icon = "images/gray.png";
+			if(markerType === "Bigfoot") {
+				//If Bigfoot - Make Red
+				icon = "images/marker.png";
+			} else if(markerType === "Alien") {
+				//If Alien - Make Green
+				icon = "images/green.png";
+			}
+			
+			return {
+			  icon: icon
+			};
+		});	
 
     //Add mouseover event to open json data for each sighting marker.
     var sightingInfo = new google.maps.InfoWindow();
@@ -36,8 +67,9 @@ function initMap() {
         var markerName = event.feature.getProperty("name");
         var markerDate = event.feature.getProperty("date");
         var markerSummary = event.feature.getProperty("summary");
-
-        sightingInfo.setContent("<strong>Case #:</strong> " + markerName + "</br>" + markerDate + "</br>" + markerSummary);
+		var markerImage = event.feature.getProperty("image");
+		
+        sightingInfo.setContent("<img class='markerImage' src='images/uploads/"+markerImage+"' alt=''><br><strong>Case #:</strong> " + markerName + "</br>" + markerDate + "</br>" + markerSummary);
         sightingInfo.setPosition(event.feature.getGeometry().get());
         sightingInfo.open(map);
     });
@@ -53,7 +85,7 @@ function initMap() {
         ilat = Number(ilat[1]);
         ilng = Number(ilng[1]);
 
-        var pos = new google.maps.LatLng({
+        pos = new google.maps.LatLng({
             lat: ilat,
             lng: ilng
         });
@@ -64,7 +96,7 @@ function initMap() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 //Set pos to current lat/lng.
-                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 userLocation(pos);
                 //geoSuccess(position);
             }, function() {
@@ -113,7 +145,7 @@ function userLocation(pos) {
     map.setCenter(pos);
 
     //Call radius function: Add radius around currect location.	
-    radius(pos);
+    radius(pos, iradius);
 
     //Add info window (tool tip) to explain user can drag location marker.
     var dragme = new google.maps.InfoWindow({
@@ -124,17 +156,18 @@ function userLocation(pos) {
     //Listen for current location marker drag event end. Update lat/lng, redraw radius, & probability.
     google.maps.event.addListener(userMarker, 'dragend', function() {
         pos = userMarker.getPosition();
-        $("#ilat").val(pos.lat); //add parameters to lat input
+		$("#ilat").val(pos.lat); //add parameters to lat input
         $("#ilng").val(pos.lng); //add parameters to lng input
         radius_circle.setMap(null);
-        radius(pos);
-        probability(pos, sightingJson);
+        iradius = radius_circle.getRadius();
+		radius(pos, iradius);
+        probability(pos, iradius, sightingJson);
     });
 
     //Assign json to variable then call probablity function.
     $.getJSON("inc/bfro_reports.json", function(data) {
         sightingJson = data["features"];
-        probability(pos, sightingJson);
+        probability(pos, iradius, sightingJson);
     });
     return;
 }
@@ -147,17 +180,37 @@ function userLocation(pos) {
  * @param {Object} pos - Google Map coordinates for marker.
  * @memberof module:lib/maps
  */
-function radius(pos) {
-    radius_circle = new google.maps.Circle({
+function radius(pos, iradius) {
+    //var pos = pos;
+	radius_circle = new google.maps.Circle({
         center: pos,
-        radius: 50 * 1000, //km to meters
+        radius: iradius, //meters 10000
         clickable: false,
         map: map
     });
+	
+	
+	//Listen for radius change. Update radius variable & probability.
+    google.maps.event.addListener(radius_circle, 'radius_changed', function() {
+		iradius = radius_circle.getRadius();		
+        probability(pos, iradius, sightingJson);
+		
+    });
+	
     return;
 }
 
-
+/**
+ * Update radius based on user input.
+ * @param {Object} iradius - String provided by HTML Range Element
+ * @memberof module:lib/maps
+ */
+function updateRadius(iradius){
+  //String to Int
+  iradius = parseInt(iradius);
+  //Redraw Radius
+  radius_circle.setRadius(iradius);
+}
 
 
 /**
@@ -174,7 +227,7 @@ function radius(pos) {
  * @returns {number} - The probability of seeing a Bigfoot.
  * @memberof module:lib/maps
  */
-function probability(pos, sightingJson) {
+function probability(pos, iradius, sightingJson) {
     //Other factors to implement in order to create more accerate probability: date, weather, season, tempature, terrain.
     var randomChance = 0.0000000715; //Chances of winning the lottery
     var proximity = 0;
@@ -188,7 +241,8 @@ function probability(pos, sightingJson) {
         var distance_from_location = google.maps.geometry.spherical.computeDistanceBetween(pos, checkcord);
 
         //If distance is less than 50000 meters, do some arbitrary math.
-        if (distance_from_location <= 50 * 1000) {
+		if (distance_from_location <= iradius) {
+			
             areaSightings++;
             proximity = proximity + distance_from_location;
         }
